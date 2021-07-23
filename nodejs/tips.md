@@ -113,3 +113,11 @@ array[array.length-1]
 const {last} = require("loash");
 last(array)
 ```
+
+* 按照顺序执行promise列表任务
+```javascript
+[func1, func2, func3].reduce((p, f) => p.then(f), Promise.resolve()).then(result3 => { /* use result3 */ });
+//或者函数式编程形式
+const applyAsync = (acc,val) => acc.then(val);
+const composeAsync = (...funcs) => x => funcs.reduce(applyAsync, Promise.resolve(x));
+```
